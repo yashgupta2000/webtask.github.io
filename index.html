@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* background-image: url("https://images5.alphacoders.com/403/403408.jpg");
+    background-repeat: no-repeat; */
+        }
+        
+        h1 {
+            align-items: center;
+            text-align: center;
+            font-size: 100px;
+            margin-bottom: 50px;
+            font-weight: 300;
+            color: white;
+            position: absolute;
+            left: 360px;
+            top: 500px;
+        }
+        
+        .box-1 {
+            background-image: url("https://images5.alphacoders.com/403/403408.jpg");
+            height: 900px;
+            filter: brightness(50%);
+            position: relative;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 45px;
+            background-color: #2c2c2c;
+        }
+        
+        .row1 {
+            /* display: inline-block; */
+            /* width: 30%; */
+            margin-top: 50px;
+            height: 100%;
+            border: 1px solid #4f4c4c;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 0px 12px rgb(170, 170, 170);
+            margin-bottom: 20px;
+        }
+        
+        .mini-box {
+            padding: 20px;
+            /* border: 2px solid blue; */
+            width: 300px;
+            height: 150px;
+            background-color: white;
+        }
+        
+        .image img {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .heading {
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        .family {
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 20px;
+        }
+        
+        .title {
+            text-align: center;
+            margin-top: 20px;
+            line-height: 25px;
+        }
+        
+        .family,
+        .title {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box-1">
+
+
+    </div>
+    <h1>GAME OF THRONES</h1>
+
+    <div class="container">
+        <!-- <div class="row1">
+            <div class="image"></div>
+            <div class="mini-box">
+                <h3 class="heading">Yash</h3>
+                <p class="description">hello my name is yash gupta</p>
+            </div>
+        </div> -->
+        <!-- <div class="row1">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit corporis, sit dolorem eligendi iure ducimus qui inventore sapiente at, cum porro animi dignissimos aperiam magni. Voluptate odio ducimus nihil.
+        </div>
+        <div class="row1">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum velit corporis, sit dolorem eligendi iure ducimus qui inventore sapiente at, cum porro animi dignissimos aperiam magni. Voluptate odio ducimus nihil.
+        </div> -->
+
+
+    </div>
+
+
+
+    <script>
+        fetchApi();
+
+        function fetchApi() {
+            fetch("https://thronesapi.com/api/v2/Characters").then((response) => {
+                return response.json();
+            }).then((data) => {
+                var apiData = data;
+                console.log(apiData);
+                renderUi(apiData)
+            })
+        }
+
+
+        var container = document.querySelector('.container');
+
+        function renderUi(apiData) {
+            const arr = [];
+            while (arr.length < 8) {
+                var i = Math.floor(Math.random() * 50);
+                if (arr.indexOf(i) === -1) {
+                    arr.push(i);
+                }
+            }
+            // console.log(arr[i]);
+            arr.forEach((el) => {
+                container.innerHTML += `<div class="row1">
+            <div class="image"><img src= "${apiData[el].imageUrl}"</div>
+            <div class="mini-box">
+                <h3 class="heading">${apiData[el].firstName}&nbsp;<span>${apiData[el].lastName}</span></h3>
+                <p class="title">Title:${apiData[el].title}</p>
+                 <p class="family">family:${apiData[el].family}</p>
+            </div>
+        </div>
+        `
+            })
+
+        }
+    </script>
+</body>
+
+</html>
